@@ -3,6 +3,7 @@
 
 import re
 import matplotlib.pyplot as plt
+import numpy as np
 
 #座標データを格納する関数
 def storeList(dataStr, data):
@@ -31,6 +32,28 @@ def storeTuple(data, parts):
     tuple = (data[partsAddr], data[partsAddr + 1], data[partsAddr + 2])
     return tuple
 
+def storeTupleinList(data):
+     array = np.zeros((8, 2))
+     k = 0
+     i = 0
+     j = 0
+     for i in range(8):
+         for j in range(2):
+             array[i][j] = data[k]
+             k += 1
+     #print(array)
+     return array
+
+
+def ReCoord(data):
+    neckx = data[1][0]
+    necky =data[1][1]
+
+    for i in range(0, 8):
+        data[i][0] -= neckx
+        data[i][1] -= necky
+    return data
+
 
 taketi_data = open(r'\OpenPose_demo_1.0.1\examples\test_image\PointData\taketi_clombia_pose.yml', "r", encoding='UTF-8')
 terasawa_data = open(r'\OpenPose_demo_1.0.1\examples\test_image\PointData\terasawa_clombia_pose.yml', "r", encoding='UTF-8')
@@ -43,15 +66,19 @@ lines4 = inoue_data.readlines()
 i = 0
 taketiDataStr = []
 taketiData = []
+taketi2Div = [[]]
 
 terasawaDataStr = []
 terasawaData = []
+terasawa2Div = [[]]
 
 teradaDataStr = []
 teradaData = []
+terada2Div = [[]]
 
 inoueDataStr = []
 inoueData = []
+inoue2Div = [[]]
 
 #正規表現のパターンをセット
 pattern = r"0\.|[0-9]*\.[0-9]*e[\+-\-][0-9]*"
@@ -75,8 +102,16 @@ teradaData = storeList(teradaDataStr, teradaData)
 inoueData = storeList(inoueDataStr, inoueData)
 
 
+taketi2Div = ReCoord(storeTupleinList(taketiData))
+terasawa2Div = ReCoord(storeTupleinList(terasawaData))
+terada2Div = ReCoord(storeTupleinList(teradaData))
+inoue2Div = ReCoord(storeTupleinList(inoueData))
+
+print(storeTupleinList(taketiData))
+print(taketi2Div)
+
 #print(terasawaData)    #printfデバッグ用
-print(taketiData)   #printfデバッグ用
+#print(taketi2Div)   #printfデバッグ用
 
 #体の部位ごとの座標をタプルに格納
 #スマートじゃないからどうにかしたい
@@ -243,8 +278,14 @@ ax.set_ylabel('y')
 ax.grid(True)
 ax.legend(loc='upper left')
 #プロット実行
-fig.show()
-plt.show()
+#fig.show()
+#plt.show()
 
 
 #ここから計算パート
+
+
+inoue_data.close()
+taketi_data.close()
+terasawa_data.close()
+terada_data.close()
