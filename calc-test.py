@@ -2,6 +2,7 @@
 #floatの座標データを取得し、正解のデータとの誤差を修正する
 
 import re
+from sys import argv
 import numpy as np
 
 #座標データを格納する関数
@@ -287,8 +288,31 @@ def p9(mas, new):
 
     return ans
 
-new_data = open(r'sawaclo.yml', "r", encoding='UTF-8')
-master_data = open(r'daclo.yml', "r", encoding='UTF-8')
+new_data = open(r'new.yml', "r", encoding='UTF-8')
+#master_data = open(r'daclo.yml', "r", encoding='UTF-8')
+
+key = argv[1] #実行時のコマンドライン引数としてpose番号を渡す
+              #argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
+
+#keyによって開くmasterファイルを決定する辞書
+dict_master = {
+    1: open(r'master1.yml', "r", encoding='UTF-8'),
+    2: open(r'master2.yml', "r", encoding='UTF-8'),
+    3: open(r'master3.yml', "r", encoding='UTF-8'),
+    4: open(r'master4.yml', "r", encoding='UTF-8'),
+    5: open(r'master5.yml', "r", encoding='UTF-8'),
+    6: open(r'master6.yml', "r", encoding='UTF-8'),
+    7: open(r'master7.yml', "r", encoding='UTF-8'),
+    8: open(r'master8.yml', "r", encoding='UTF-8'),
+    9: open(r'master9.yml', "r", encoding='UTF-8')
+}
+
+if key in dict_master:
+    master_data = dict_master[key]
+else:
+    print("do not work")
+
+
 lines = new_data.readlines()
 lines2 = master_data.readlines()
 i = 0
@@ -331,8 +355,6 @@ dict_pose = {
     8: p8(mas, new),
     9: p9(mas, new)
     }
-
-key = 9 #実際には何らかの方法でkey(=pose番号)を外からもらう
 
 #keyを辞書に投げて関数を実行し，その結果をcansへ代入する
 if key in dict_pose:
