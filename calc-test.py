@@ -10,32 +10,8 @@ def storeList(dataStr, data):
         for j in range(len(dataStr[i])):
             data.append(float(dataStr[i][j]))
     return data
-#座標値の誤差を計算する関数
-
-#座標値の総和を軸ごとに計算し、タプルに格納
-def calcCoordinate(cord):
-    uprx = (cord[0][0] + cord[1][0] + cord[2][0] + cord[3][0])
-    lowx = (cord[4][0] + cord[5][0] + cord[6][0] + cord[7][0])
-
-    upry = (cord[0][1] + cord[1][1] + cord[2][1] + cord[3][1])
-    lowy = (cord[4][1] + cord[5][1] + cord[6][1] + cord[7][1])
-
-    x = uprx + lowx
-    y = upry + lowy
-    ans = (x, y)
-    return ans
-#傾きを計算する関数
-#隣接する2つの関節点の傾きを計算する
-def Gradient(parts1, parts2):
-    grad = (parts1[1] - parts2[1]) / (parts1[0] - parts2[0])
-    return grad
-#元データと比較対象データの傾きを比較する関数
-def compGradient(masGrad, newGrad):
-    comp = (newGrad - masGrad) / masGrad
-    comp *= 100 #パーセンテージに変換
-    return comp
 #xy座標を二重リストに格納する関数
-def storeTupleinList(data):
+def storeDoubleList(data):
     array = np.zeros((8, 2))
     k = 0
     i = 0
@@ -58,7 +34,7 @@ def reCoord(data):
         data[i][0] -= neckx
         data[i][1] -= necky
     return data
-
+#以下p1からp9はpose判定関数
 def p1(mas, new):
     mas1x = mas[4][0] - mas[3][0]
     mas1y = mas[4][1] - mas[3][1]
@@ -85,7 +61,6 @@ def p1(mas, new):
     ans = (abs((mpans1 - npans1)) + abs((mpans2 - npans2))) / 2
 
     return ans
-
 def p2(mas, new):
     mas1x = mas[7][0] - mas[6][0]
     mas1y = mas[7][1] - mas[6][1]
@@ -111,7 +86,6 @@ def p2(mas, new):
     ans = (abs((mpans1 - npans1)) + abs((mpans2 - npans2))) / 2
 
     return ans
-
 def p3(mas, new):
     mas1x = mas[4][0] - mas[2][0]
     mas1y = mas[4][1] - mas[2][1]
@@ -137,7 +111,6 @@ def p3(mas, new):
     ans = (abs(mpans + npans) + constant) / 2
 
     return ans
-
 def p4(mas, new):
     mas1x = mas[4][0] - mas[3][0]
     mas1y = mas[4][1] - mas[3][1]
@@ -174,7 +147,6 @@ def p4(mas, new):
     ans = (abs((mpans1 - npans1)) + abs((mpans2 - npans2)) + constant) / 2
 
     return ans
-
 def p5(mas, new):
     mas1x = mas[4][0] - mas[2][0]
     mas1y = mas[4][1] - mas[2][1]
@@ -200,7 +172,6 @@ def p5(mas, new):
     ans = (abs(mpans + npans) + constant) / 2
 
     return ans
-
 def p6(mas, new):
     mas1x = mas[4][0] - mas[2][0]
     mas1y = mas[4][1] - mas[2][1]
@@ -226,7 +197,6 @@ def p6(mas, new):
     ans = (abs(mpans + npans) + constant) / 2
 
     return ans
-
 def p7(mas, new):
     mas1x = mas[4][0] - mas[3][0]
     mas1y = mas[4][1] - mas[3][1]
@@ -263,7 +233,6 @@ def p7(mas, new):
     ans = (abs((mpans1 - npans1)) + abs((mpans2 - npans2)) + constant) / 2
 
     return ans
-
 def p8(mas, new):
     mas1x = mas[4][0] - mas[3][0]
     mas1y = mas[4][1] - mas[3][1]
@@ -300,7 +269,6 @@ def p8(mas, new):
     ans = (abs((mpans1 - npans1)) + abs((mpans2 - npans2)) + constant) / 2
 
     return ans
-
 def p9(mas, new):
 #判定用ベクトル生成
     mas1x = mas[7][0] - mas[4][0]
@@ -347,8 +315,8 @@ mas = [[]]
 new = [[]]
 
 
-mas = reCoord(storeTupleinList(masterData))
-new = reCoord(storeTupleinList(newData))
+mas = reCoord(storeDoubleList(masterData))
+new = reCoord(storeDoubleList(newData))
 
 #ここから計算パート
 #pose番号から実行する判定関数を決定する辞書
