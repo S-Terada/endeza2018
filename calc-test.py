@@ -3,6 +3,7 @@
 
 import re
 from sys import argv
+import sys
 import numpy as np
 
 #座標データを格納する関数
@@ -288,9 +289,6 @@ def p9(mas, new):
 
     return ans
 
-new_data = open(r'new.yml', "r", encoding='UTF-8')
-#master_data = open(r'daclo.yml', "r", encoding='UTF-8')
-
 key = argv[1] #実行時のコマンドライン引数としてpose番号を渡す
               #argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
 
@@ -312,10 +310,10 @@ if key in dict_master:
 else:
     print("do not work")
 
+new_data = open(r'new.yml', "r", encoding='UTF-8')
 
 lines = new_data.readlines()
 lines2 = master_data.readlines()
-i = 0
 newDataStr = []
 newData = []
 
@@ -366,6 +364,8 @@ else:
 if abs(cans) < 3000 :
     print("Pose Correct")
     print("The door will unlock")
+    sys.exit(777)
 else:
     print("Pose Incorrect")
     print("Go Back to your Home")
+    sys.exit(666)
