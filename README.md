@@ -1,2 +1,2 @@
-# endeza2018
-endeza2018 hirano Lab.
+# pose判定時の制限事項
+
