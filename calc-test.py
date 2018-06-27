@@ -312,41 +312,45 @@ def selectPose(mas, new, key):
 
     return ans
 
-key1 = argv[1]
-key2 = argv[2]
-key3 = argv[3] #実行時のコマンドライン引数としてpose番号を渡す
+def selectMaster(key):
+    master = [[]]
+    if key == 1:
+        master = open(r'master1.csv', "r", encoding='UTF-8')
+    elif key == 2:
+        master = open(r'master2.csv', "r", encoding='UTF-8')
+    elif key == 3:
+        master = open(r'master3.csv', "r", encoding='UTF-8')
+    elif key == 4:
+        master = open(r'master4.csv', "r", encoding='UTF-8')
+    elif key == 5:
+        master = open(r'master5.csv', "r", encoding='UTF-8')
+    elif key == 6:
+        master = open(r'master6.csv', "r", encoding='UTF-8')
+    elif key == 7:
+        master = open(r'master7.csv', "r", encoding='UTF-8')
+    elif key == 8:
+        master = open(r'master8.csv', "r", encoding='UTF-8')
+    elif key == 9:
+        master = open(r'master9.csv', "r", encoding='UTF-8')
+
+    return master
+
+key1 = (int)(argv[1] / 100) #先頭一桁
+key2 = (int)(key1 / 10)     #二桁目
+key3 = (int)(key1 % 10)     #三桁目
+               #実行時のコマンドライン引数としてpose番号を3桁で渡す
                #argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
 
 #keyによって開くmasterファイルを決定する辞書
-
-dict_master = {
-    1: open(r'master1.yml', "r", encoding='UTF-8'),
-    2: open(r'master2.yml', "r", encoding='UTF-8'),
-    3: open(r'master3.yml', "r", encoding='UTF-8'),
-    4: open(r'master4.yml', "r", encoding='UTF-8'),
-    5: open(r'master5.yml', "r", encoding='UTF-8'),
-    6: open(r'master6.yml', "r", encoding='UTF-8'),
-    7: open(r'master7.yml', "r", encoding='UTF-8'),
-    8: open(r'master8.yml', "r", encoding='UTF-8'),
-    9: open(r'master9.yml', "r", encoding='UTF-8')
-}
-
-if (key1 or key2 or key3) == None:
+if (key1) == None:
     print("key Wrong!!!! FU*KI'N S*IT!!")
-
-else:
-    master1_data = dict_master[key1]
-    master2_data = dict_master[key2]
-    master3_data = dict_master[key3]
 
 new1_data = open(r'new1.yml', "r", encoding='UTF-8')
 new2_data = open(r'new2.yml', "r", encoding='UTF-8')
 new3_data = open(r'new3.yml', "r", encoding='UTF-8')
 
-
-lines = master1_data.readlines()
-lines2 = master2_data.readlines()
-lines3 = master3_data.readlines()
+"""masterのフォーマット変換に関わる部分は，calc-Master.pyで既に終わっているので不要
+"""
 lines4 = new1_data.readlines()
 lines5 = new2_data.readlines()
 lines6 = new3_data.readlines()
@@ -358,23 +362,10 @@ new1Data = []
 new2Data = []
 new3Data = []
 
-master1DataStr = []
-master2DataStr = []
-master3DataStr = []
-master1Data = []
-master2Data = []
-master3Data = []
-
 #正規表現のパターンをセット
 pattern = r"0\.|[0-9]*\.[0-9]*e[\+-\-][0-9]*"
 
 #配列にデータを追加 1行を読み込んでパターンとマッチしたものを二次元配列に追加
-for line in lines:
-    master1DataStr.append(re.findall(pattern, line))
-for line in lines2:
-    master2DataStr.append(re.findall(pattern, line))
-for line in lines3:
-    master3DataStr.append(re.findall(pattern, line))
 for line in lines4:
     new1DataStr.append(re.findall(pattern, line))
 for line in lines5:
@@ -383,24 +374,18 @@ for line in lines6:
     new3DataStr.append(re.findall(pattern, line))
 
 #新規データを一次元配列にfloat型で格納しなおす
-master1Data = storeList(master1DataStr, master1Data)
-master2Data = storeList(master2DataStr, master2Data)
-master3Data = storeList(master3DataStr, master3Data)
-
 new1Data = storeList(new1DataStr, new1Data)
 new2Data = storeList(new2DataStr, new2Data)
 new3Data = storeList(new3DataStr, new3Data)
 
-mas1 = [[]]
-mas2 = [[]]
-mas3 = [[]]
+mas1 = selectMaster(key1)
+mas2 = selectMaster(key2)
+mas3 = selectMaster(key3)
+
 new1 = [[]]
 new2 = [[]]
 new3 = [[]]
 
-mas1 = reCoord(storeDoubleList(master1Data))
-mas2 = reCoord(storeDoubleList(master2Data))
-mas3 = reCoord(storeDoubleList(master3Data))
 new1 = reCoord(storeDoubleList(new1Data))
 new2 = reCoord(storeDoubleList(new2Data))
 new3 = reCoord(storeDoubleList(new3Data))
@@ -412,6 +397,7 @@ new3 = reCoord(storeDoubleList(new3Data))
 cans1 = selectPose(mas1, new1, key1)
 cans2 = selectPose(mas2, new2, key2)
 cans3 = selectPose(mas3, new3, key3)
+
 
 
 if abs(cans1) < 3000 :
