@@ -336,8 +336,8 @@ def selectMaster(key):
     return master
 
 key1 = (int)(argv[1] / 100) #先頭一桁
-key2 = (int)(key1 / 10)     #二桁目
-key3 = (int)(key1 % 10)     #三桁目
+key2 = (int)((argv[1]%100) / 10)     #二桁目
+key3 = (int)((argv[1]%100)%10)     #三桁目
                #実行時のコマンドライン引数としてpose番号を3桁で渡す
                #argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
 
