@@ -289,10 +289,36 @@ def p9(mas, new):
 
     return ans
 
-key = argv[1] #実行時のコマンドライン引数としてpose番号を渡す
-              #argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
+def selectPose(mas, new, key):
+    ans = 0
+    if key == 1:
+        ans = p1(mas, new)
+    elif key == 2:
+        ans = p2(mas, new)
+    elif key == 3:
+        ans = p3(mas, new)
+    elif key == 4:
+        ans = p4(mas, new)
+    elif key == 5:
+        ans = p5(mas, new)
+    elif key == 6:
+        ans = p6(mas, new)
+    elif key == 7:
+        ans = p7(mas, new)
+    elif key == 8:
+        ans = p8(mas, new)
+    elif key == 9:
+        ans = p9(mas, new)
+
+    return ans
+
+key1 = argv[1]
+key2 = argv[2]
+key3 = argv[3] #実行時のコマンドライン引数としてpose番号を渡す
+               #argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
 
 #keyによって開くmasterファイルを決定する辞書
+
 dict_master = {
     1: open(r'master1.yml', "r", encoding='UTF-8'),
     2: open(r'master2.yml', "r", encoding='UTF-8'),
@@ -305,63 +331,90 @@ dict_master = {
     9: open(r'master9.yml', "r", encoding='UTF-8')
 }
 
-if key in dict_master:
-    master_data = dict_master[key]
+if (key1 or key2 or key3) == None:
+    print("key Wrong!!!! FU*KI'N S*IT!!")
+
 else:
-    print("do not work")
+    master1_data = dict_master[key1]
+    master2_data = dict_master[key2]
+    master3_data = dict_master[key3]
 
-new_data = open(r'new.yml', "r", encoding='UTF-8')
+new1_data = open(r'new1.yml', "r", encoding='UTF-8')
+new2_data = open(r'new2.yml', "r", encoding='UTF-8')
+new3_data = open(r'new3.yml', "r", encoding='UTF-8')
 
-lines = new_data.readlines()
-lines2 = master_data.readlines()
-newDataStr = []
-newData = []
 
-masterDataStr = []
-masterData = []
+lines = master1_data.readlines()
+lines2 = master2_data.readlines()
+lines3 = master3_data.readlines()
+lines4 = new1_data.readlines()
+lines5 = new2_data.readlines()
+lines6 = new3_data.readlines()
+
+new1DataStr = []
+new2DataStr = []
+new3DataStr = []
+new1Data = []
+new2Data = []
+new3Data = []
+
+master1DataStr = []
+master2DataStr = []
+master3DataStr = []
+master1Data = []
+master2Data = []
+master3Data = []
 
 #正規表現のパターンをセット
 pattern = r"0\.|[0-9]*\.[0-9]*e[\+-\-][0-9]*"
 
 #配列にデータを追加 1行を読み込んでパターンとマッチしたものを二次元配列に追加
-for line in lines:  #新規データ
-    newDataStr.append(re.findall(pattern, line))
-for line in lines2: #マスターデータ
-    masterDataStr.append(re.findall(pattern, line))
+for line in lines:
+    master1DataStr.append(re.findall(pattern, line))
+for line in lines2:
+    master2DataStr.append(re.findall(pattern, line))
+for line in lines3:
+    master3DataStr.append(re.findall(pattern, line))
+for line in lines4:
+    new1DataStr.append(re.findall(pattern, line))
+for line in lines5:
+    new2DataStr.append(re.findall(pattern, line))
+for line in lines6:
+    new3DataStr.append(re.findall(pattern, line))
 
 #新規データを一次元配列にfloat型で格納しなおす
-newData = storeList(newDataStr, newData)
-masterData = storeList(masterDataStr, masterData)
+master1Data = storeList(master1DataStr, master1Data)
+master2Data = storeList(master2DataStr, master2Data)
+master3Data = storeList(master3DataStr, master3Data)
 
-mas = [[]]
-new = [[]]
+new1Data = storeList(new1DataStr, new1Data)
+new2Data = storeList(new2DataStr, new2Data)
+new3Data = storeList(new3DataStr, new3Data)
 
+mas1 = [[]]
+mas2 = [[]]
+mas3 = [[]]
+new1 = [[]]
+new2 = [[]]
+new3 = [[]]
 
-mas = reCoord(storeDoubleList(masterData))
-new = reCoord(storeDoubleList(newData))
+mas1 = reCoord(storeDoubleList(master1Data))
+mas2 = reCoord(storeDoubleList(master2Data))
+mas3 = reCoord(storeDoubleList(master3Data))
+new1 = reCoord(storeDoubleList(new1Data))
+new2 = reCoord(storeDoubleList(new2Data))
+new3 = reCoord(storeDoubleList(new3Data))
 
 #ここから計算パート
 #pose番号から実行する判定関数を決定する辞書
-dict_pose = {
-    1: p1(mas, new),
-    2: p2(mas, new),
-    3: p3(mas, new),
-    4: p4(mas, new),
-    5: p5(mas, new),
-    6: p6(mas, new),
-    7: p7(mas, new),
-    8: p8(mas, new),
-    9: p9(mas, new)
-    }
 
 #keyを辞書に投げて関数を実行し，その結果をcansへ代入する
-if key in dict_pose:
-    cans = dict_pose[key]
-else:
-    print("do not work")
+cans1 = selectPose(mas1, new1, key1)
+cans2 = selectPose(mas2, new2, key2)
+cans3 = selectPose(mas3, new3, key3)
 
 
-if abs(cans) < 3000 :
+if abs(cans1) < 3000 :
     print("Pose Correct")
     print("The door will unlock")
     sys.exit(777)
