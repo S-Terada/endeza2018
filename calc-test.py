@@ -335,6 +335,28 @@ def selectMaster(key):
 
     return master
 
+def checkAns(cans1, cans2, cans3, key1, key2, key3):
+    if abs(cans1) < 3000:
+        if abs(cans2) < 3000:
+            if abs(cans3) < 3000:
+                collectAns(0, 0)
+            else:
+                collectAns(1, key3)
+        else:
+            collectAns(1, key2)
+    else:
+        collectAns(1, key1)
+
+def collectAns(i, key):
+    if i == 0:
+        print("Pose Correct")
+        print("The door will unlock")
+        sys.exit(777)
+    elif i == 1:
+        print("Pose {0} Incorrect".format(key))
+        print("Go Back to your Home")
+        sys.exit(666)
+
 key1 = (int)(argv[1] / 100) #先頭一桁
 key2 = (int)((argv[1]%100) / 10)     #二桁目
 key3 = (int)((argv[1]%100)%10)     #三桁目
@@ -398,13 +420,4 @@ cans1 = selectPose(mas1, new1, key1)
 cans2 = selectPose(mas2, new2, key2)
 cans3 = selectPose(mas3, new3, key3)
 
-
-
-if abs(cans1) < 3000 :
-    print("Pose Correct")
-    print("The door will unlock")
-    sys.exit(777)
-else:
-    print("Pose Incorrect")
-    print("Go Back to your Home")
-    sys.exit(666)
+checkAns(cans1, cans2, cans3, key1, key2, key3)
