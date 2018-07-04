@@ -49,7 +49,7 @@ def makeMaster(mas1, mas2, mas3, mas4, mas5):
 
     return 0
 
-master1_proto = open(r'master1_proto.yml', "r", encoding='UTF-8')
+master1_proto = open(r'proto1.yml', "r", encoding='UTF-8')
 master2_proto = open(r'proto2.yml', "r", encoding='UTF-8')
 master3_proto = open(r'proto3.yml', "r", encoding='UTF-8')
 master4_proto = open(r'proto4.yml', "r", encoding='UTF-8')
