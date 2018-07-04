@@ -332,24 +332,55 @@ def selectPose(mas, new, key):
 def selectMaster(key):
     master = [[]]
     if key == 1:
-        master = open(r'master1.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master1.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 2:
-        master = open(r'master2.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master2.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 3:
-        master = open(r'master3.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master3.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 4:
-        master = open(r'master4.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master4.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 5:
-        master = open(r'master5.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master5.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 6:
-        master = open(r'master6.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master6.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 7:
-        master = open(r'master7.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master7.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 8:
-        master = open(r'master8.csv', "r", encoding='UTF-8')
+        master = []
+        with open(r'master8.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     elif key == 9:
         master = []
-        #with open(r'\OpenPose_demo_1.0.1\examples\masterData\materPoint\master9.csv', "r", encoding='UTF-8') as f:
         with open(r'master9.csv', "r", encoding='UTF-8') as f:
             buf = csv.reader(f)
             for tmp in buf:
@@ -362,20 +393,25 @@ def checkAns(cans1, cans2, cans3, key1, key2, key3):
             if abs(cans3) < 3000:
                 collectAns(0, 0)
             else:
-                collectAns(1, key3)
+                collectAns(1, 3, key3)
         else:
-            collectAns(1, key2)
+            collectAns(1, 2, key2)
     else:
-        collectAns(1, key1)
+        collectAns(1, 1, key1)
 
-def collectAns(i, key):
+def collectAns(i, num, key):
     if i == 0:
         print("Pose Correct")
         print("The door will unlock")
         sys.exit(777)
     elif i == 1:
-        print("Pose {0} Incorrect".format(key))
-        print("Go Back to your Home")
+        if num == 1:
+            print("1st Pose No.{0} Incorrect".format(key))
+        elif num == 2:
+            print("2nd Pose No.{0} Incorrect".format(key))
+        elif num == 3:
+            print("3rd Pose No.{0} Incorrect".format(key))
+        print("Go Back To Your Home!!!")
         sys.exit(666)
 
 
@@ -449,11 +485,6 @@ master3Data = storeList(master3DataStr, master3Data)
 mas1 = reCoord(storeMasterList(master1Data))
 mas2 = reCoord(storeMasterList(master2Data))
 mas3 = reCoord(storeMasterList(master3Data))
-
-
-mas1 = selectMaster(key1)
-mas2 = selectMaster(key2)
-mas3 = selectMaster(key3)
 
 new1 = [[]]
 new2 = [[]]
