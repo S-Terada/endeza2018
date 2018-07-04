@@ -364,7 +364,7 @@ key3 = (int)((argv[1]%100)%10)     #三桁目
                #argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
 
 #keyによって開くmasterファイルを決定する辞書
-if (key1) == None:
+if (key1 or key2 or key3) == None:
     print("key Wrong!!!! FU*KI'N S*IT!!")
 
 new1_data = open(r'new1.yml', "r", encoding='UTF-8')
