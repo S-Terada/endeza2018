@@ -2,24 +2,33 @@
 import sys
 
 def checkKey(key1, key2, key3):
-    if key1 == None:
+    if key1 is None:
         if(key2 != None and key3 != None):
             print("ERROR : 1st key is Wrong!!!!")
             sys.exit(1)
-        elif(key2 == None and key3 != None):
+        elif(key2 is None and key3 != None):
             print("ERROR : 1st and 2nd keys is Wrong!!!!")
             sys.exit(11)
-    elif key2 == None:
+    elif key2 is None:
         if(key3 != None):
             print("ERROR : 2nd key is Wrong!!!!")
             sys.exit(10)
-        elif(key3 == None):
+        elif(key3 is None):
             print("ERROR : 2nd and 3rd keys is Wrong!!!!")
             sys.exit(110)
-    else:
+    elif key3 is None:
+        if(key1 != None and key2 != None):
+            print("ERROR : 3rd key is Wrong!!!!)
+            sys.exit(100)
+        elif(key1 is None and key2 != None):
+            print("ERROE : 1st and 3rd key is Wrong!!!!")
+            sys.exit(101)
+    elif((key1 is None and key2 is None) and key3 is None):
         print("ERROR : All keys is Wrong!!!!")
         sys.exit(111)
 
+    rerutn              
+    
 def checkAns(cans1, cans2, cans3, key1, key2, key3):
     if abs(cans1) < 3000:
         if abs(cans2) < 3000:
