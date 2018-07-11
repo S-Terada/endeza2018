@@ -57,6 +57,6 @@ def collectAns(i, num, key):
         print("Go Back To Your Home!!!")
         sys.exit(666)
 
-if argv[1] is None:
+if len(sys.argv) == 1:
     print("Argument is None")
     sys.exit(555)
