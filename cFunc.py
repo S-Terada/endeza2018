@@ -18,7 +18,7 @@ def checkKey(key1, key2, key3):
             sys.exit(110)
     elif key3 is None:
         if(key1 != None and key2 != None):
-            print("ERROR : 3rd key is Wrong!!!!)
+            print("ERROR : 3rd key is Wrong!!!!")
             sys.exit(100)
         elif(key1 is None and key2 != None):
             print("ERROE : 1st and 3rd key is Wrong!!!!")
