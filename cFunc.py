@@ -1,34 +1,35 @@
 #checkまわりの関数まとめ
 import sys
+from sys import argv
 
 def checkKey(key1, key2, key3):
-    if key1 is None:
-        if(key2 != None and key3 != None):
+    if key1 is 0:
+        if (key2 != 0 and key3 != 0):
             print("ERROR : 1st key is Wrong!!!!")
             sys.exit(1)
-        elif(key2 is None and key3 != None):
+        elif (key2 is 0 and key3 != 0):
             print("ERROR : 1st and 2nd keys is Wrong!!!!")
             sys.exit(11)
-    elif key2 is None:
-        if(key3 != None):
+    elif key2 is 0:
+        if (key3 != 0):
             print("ERROR : 2nd key is Wrong!!!!")
             sys.exit(10)
-        elif(key3 is None):
+        elif (key3 is 0):
             print("ERROR : 2nd and 3rd keys is Wrong!!!!")
             sys.exit(110)
-    elif key3 is None:
-        if(key1 != None and key2 != None):
+    elif key3 is 0:
+        if (key1 != 0 and key2 != 0):
             print("ERROR : 3rd key is Wrong!!!!")
             sys.exit(100)
-        elif(key1 is None and key2 != None):
+        elif (key1 is 0 and key2 != 0):
             print("ERROE : 1st and 3rd key is Wrong!!!!")
             sys.exit(101)
-    elif((key1 is None and key2 is None) and key3 is None):
+    elif ((key1 is 0 and key2 is 0) and key3 is 0):
         print("ERROR : All keys is Wrong!!!!")
         sys.exit(111)
 
-    rerutn              
-    
+    return
+
 def checkAns(cans1, cans2, cans3, key1, key2, key3):
     if abs(cans1) < 3000:
         if abs(cans2) < 3000:
@@ -55,3 +56,7 @@ def collectAns(i, num, key):
             print("3rd Pose No.{0} Incorrect".format(key))
         print("Go Back To Your Home!!!")
         sys.exit(666)
+
+if argv[1] is None:
+    print("Argument is None")
+    sys.exit(555)
