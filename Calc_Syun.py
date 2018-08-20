@@ -12,17 +12,6 @@ from lFunc import *
 import glob
 
 
-# 首基準の相対座標に直す関数
-def reCoord(data):
-    neckx = data[1][0]
-    necky = data[1][1]
-
-    for i in range(0, 8):
-        data[i][0] -= neckx
-        data[i][1] -= necky
-    return data
-
-
 # 以下p1からp9はpose判定関数
 key1 = int((int(argv[1]) / 100))  # 先頭一桁
 key2 = int(((int(argv[1]) % 100) / 10))  # 二桁目
@@ -58,7 +47,7 @@ new2Data = []
 new3Data = []
 
 # 正規表現のパターンをセット
-pattern = r"0\.|[0-9]*\.[0-9]*e[\+-\-][0-9]*"
+pattern = r"-0\.|-[0-9]*\.[0-9]*|0\.|[0-9]*\.[0-9]*"
 
 # 配列にデータを追加 1行を読み込んでパターンとマッチしたものを二次元配列に追加
 for line in lines4:

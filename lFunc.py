@@ -23,3 +23,14 @@ def storeDoubleList(data):
                 k += 1
     # print(array)
     return array
+
+
+# 首基準の相対座標に直す関数
+def reCoord(data):
+    neckx = data[1][0]
+    necky = data[1][1]
+
+    for i in range(0, 8):
+        data[i][0] -= neckx
+        data[i][1] -= necky
+    return data
