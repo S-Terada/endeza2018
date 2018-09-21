@@ -5,31 +5,26 @@ import re
 from sys import argv
 import sys
 import csv
-#import pFunc
 from pFunc import *
 from cFunc import *
 from mFunc import *
 from lFunc import *
+import glob
+import json
+from collections import OrderedDict
+import pprint
 
-
-# 首基準の相対座標に直す関数
-def reCoord(data):
-    neckx = data[1][0]
-    necky = data[1][1]
-
-    for i in range(0, 8):
-        data[i][0] -= neckx
-        data[i][1] -= necky
-    return data
 
 # 以下p1からp9はpose判定関数
-
 key1 = int((int(argv[1]) / 100))  # 先頭一桁
 key2 = int(((int(argv[1]) % 100) / 10))  # 二桁目
 key3 = int(((int(argv[1]) % 100) % 10)) # 三桁目
 # 実行時のコマンドライン引数としてpose番号を3桁で渡す
 # argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
-
+#print(argv[1])
+#print(key1)
+#print(key2)
+#print(key3)
 checkKey(key1, key2, key3)
 
 """
@@ -38,36 +33,30 @@ new2_data = open(r'\OpenPose_demo_1.0.1\examples\analysisData\209_pose.yml', "r"
 new3_data = open(r'\OpenPose_demo_1.0.1\examples\analysisData\309_pose.yml', "r", encoding='UTF-8')
 """
 
-new1_data = open(r'new1.yml', "r", encoding='UTF-8')
-new2_data = open(r'new2.yml', "r", encoding='UTF-8')
-new3_data = open(r'new3.yml', "r", encoding='UTF-8')
+#jsonを取り扱う新版
 
-lines4 = new1_data.readlines()
-lines5 = new2_data.readlines()
-lines6 = new3_data.readlines()
+imageData = glob.glob(r'\openpose-1.3.0-win64-gpu-binaries\examples\analysisData\*.json')
 
-new1DataStr = []
-new2DataStr = []
-new3DataStr = []
-new1Data = []
-new2Data = []
-new3Data = []
+f1 = open(imageData[0], "r", encoding='UTF-8')
+f2 = open(imageData[1], "r", encoding='UTF-8')
+f3 = open(imageData[2], "r", encoding='UTF-8')
 
-# 正規表現のパターンをセット
-pattern = r"0\.|[0-9]*\.[0-9]*e[\+-\-][0-9]*"
+json1 = json.load(f1)
+json2 = json.load(f2)
+json3 = json.load(f3)
 
-# 配列にデータを追加 1行を読み込んでパターンとマッチしたものを二次元配列に追加
-for line in lines4:
-    new1DataStr.append(re.findall(pattern, line))
-for line in lines5:
-    new2DataStr.append(re.findall(pattern, line))
-for line in lines6:
-    new3DataStr.append(re.findall(pattern, line))
+#print(json1)
+#print("this is json mode")
+#print(json1["people"][0])
+#print(json1["people"][0]["pose_keypoints"][0])
 
-# 新規データを一次元配列にfloat型で格納しなおす
-new1Data = storeList(new1DataStr, new1Data)
-new2Data = storeList(new2DataStr, new2Data)
-new3Data = storeList(new3DataStr, new3Data)
+new1 = [[]]
+new2 = [[]]
+new3 = [[]]
+
+new1 = reCoord(storeDoubleList(json1["people"][0]["pose_keypoints_2d"]))
+new2 = reCoord(storeDoubleList(json2["people"][0]["pose_keypoints_2d"]))
+new3 = reCoord(storeDoubleList(json3["people"][0]["pose_keypoints_2d"]))
 
 master1DataStr = []
 master2DataStr = []
@@ -91,13 +80,7 @@ mas1 = reCoord(storeMasterList(master1Data))
 mas2 = reCoord(storeMasterList(master2Data))
 mas3 = reCoord(storeMasterList(master3Data))
 
-new1 = [[]]
-new2 = [[]]
-new3 = [[]]
 
-new1 = reCoord(storeDoubleList(new1Data))
-new2 = reCoord(storeDoubleList(new2Data))
-new3 = reCoord(storeDoubleList(new3Data))
 
 # ここから計算パート
 # keyを辞書に投げて関数を実行し，その結果をcansへ代入する

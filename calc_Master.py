@@ -21,7 +21,7 @@ def storeDoubleList(data):
     j = 0
     for i in range(8):
         for j in range(3):
-            if k % 3 != 2 :
+            if k % 3 != 2:
                 array[i][j] = data[k]
                 k += 1
             else:
@@ -41,7 +41,7 @@ def makeMaster(mas1, mas2, mas3, mas4, mas5):
     masArray = [[]]
     masArray = np.array((mas1 + mas2 + mas3 + mas4 + mas5) / 5)
     print(masArray)
-    with open('master.csv', 'w') as f:
+    with open('\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\master9.csv', 'w') as f:
         writer = csv.writer(f, lineterminator='\n')
         writer.writerows(masArray)
 
@@ -49,11 +49,12 @@ def makeMaster(mas1, mas2, mas3, mas4, mas5):
 
     return 0
 
-master1_proto = open(r'proto1.yml', "r", encoding='UTF-8')
-master2_proto = open(r'proto2.yml', "r", encoding='UTF-8')
-master3_proto = open(r'proto3.yml', "r", encoding='UTF-8')
-master4_proto = open(r'proto4.yml', "r", encoding='UTF-8')
-master5_proto = open(r'proto5.yml', "r", encoding='UTF-8')
+
+master1_proto = open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\proto1_pose.yml', "r", encoding='UTF-8')
+master2_proto = open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\proto2_pose.yml', "r", encoding='UTF-8')
+master3_proto = open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\proto3_pose.yml', "r", encoding='UTF-8')
+master4_proto = open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\proto4_pose.yml', "r", encoding='UTF-8')
+master5_proto = open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\proto5_pose.yml', "r", encoding='UTF-8')
 
 lines1 = master1_proto.readlines()
 lines2 = master2_proto.readlines()
@@ -76,7 +77,7 @@ mas4Data = []
 mas5Data = []
 
 #正規表現のパターンをセット
-pattern = r"0\.|[0-9]*\.[0-9]*e[\+-\-][0-9]*"
+pattern = r"-0\.|-[0-9]*\.[0-9]*|0\.|[0-9]*\.[0-9]*"
 
 #配列にデータを追加 1行を読み込んでパターンとマッチしたものを二次元配列に追加
 for line in lines1:
@@ -112,5 +113,5 @@ mas5 = reCoord(storeDoubleList(mas5Data))
 
 
 
-print(mas1)
-makeMaster(mas1)
+#print(mas1)
+makeMaster(mas1, mas2, mas3, mas4, mas5)
