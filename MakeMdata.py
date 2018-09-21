@@ -21,14 +21,14 @@ def storeSrcList(data):
     return array
 
 def makeDataforML(src):
-    srcArray = [[]]
-    #print(masArray)
-
+    srcArray = src
+    print(src)
     for i in range(1, 51):
-        for j in range(0,8):
+        for j in range(0, 8):
             randnum = random.uniform(0.8, 1.2)
+            print("j = " + str(j))
             srcArray[j] = (src[j] * randnum)
-        with open(r'\OpenPose_demo_1.0.1\examples\test_image\pose1-test\model{0}.csv'.format(i), 'w') as f:
+        with open(r'\OpenPose_demo_1.0.1\examples\test_image\pose9-test\model{0}.csv'.format(i), 'w') as f:
             writer = csv.writer(f, lineterminator='\n')
             writer.writerows(srcArray)
 
@@ -36,7 +36,7 @@ def makeDataforML(src):
     return 0
 
 
-src = open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint1\master1.csv', "r", encoding='UTF-8')
+src = open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\master9.csv', "r", encoding='UTF-8')
 
 lines1 = src.readlines()
 
@@ -62,5 +62,5 @@ srcresult = [[]]
 
 
 srcresult = reCoord(storeSrcList(srcData))
-print(srcresult)
-#makeDataforML(srcresult)
+#print(srcresult)
+makeDataforML(srcresult)

@@ -47,10 +47,7 @@ for i in range(1, 51):
         plt.plot([point[2][0], point[5][0]], [point[2][1], point[5][1]], 'y')
 
     f.close()
-print(point)
-print(point[2][0])
-print(point[2][1])
-print(point[3][0])
-print(point[3][1])
+
+
 # 描画実行
 plt.show()

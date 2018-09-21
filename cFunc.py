@@ -32,9 +32,9 @@ def checkKey(key1, key2, key3):
 
 
 def checkAns(cans1, cans2, cans3, key1, key2, key3):
-    if abs(cans1) < 30000:
-        if abs(cans2) < 30000:
-            if abs(cans3) < 30000:
+    if abs(cans1) < 60000:
+        if abs(cans2) < 60000:
+            if abs(cans3) < 60000:
                 collectAns(0, 0, key1)
             else:
                 collectAns(1, 3, key3)

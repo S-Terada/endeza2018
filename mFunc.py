@@ -70,4 +70,10 @@ def selectMaster(key):
             buf = csv.reader(f)
             for tmp in buf:
                 master.append(tmp)
+    elif key == 0:
+        master = []
+        with open(r'\OpenPose_demo_1.0.1\examples\masterData\masterPoint9\master9.csv', "r", encoding='UTF-8') as f:
+            buf = csv.reader(f)
+            for tmp in buf:
+                master.append(tmp)
     return master

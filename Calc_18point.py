@@ -20,18 +20,8 @@ key1 = int((int(argv[1]) / 100))  # 先頭一桁
 key2 = int(((int(argv[1]) % 100) / 10))  # 二桁目
 key3 = int(((int(argv[1]) % 100) % 10)) # 三桁目
 # 実行時のコマンドライン引数としてpose番号を3桁で渡す
-# argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る
-#print(argv[1])
-#print(key1)
-#print(key2)
-#print(key3)
+# argv[]の第一引数は実行ファイル名，第二引数をkeyとして受け取る\
 checkKey(key1, key2, key3)
-
-"""
-new1_data = open(r'\OpenPose_demo_1.0.1\examples\analysisData\109_pose.yml', "r", encoding='UTF-8')
-new2_data = open(r'\OpenPose_demo_1.0.1\examples\analysisData\209_pose.yml', "r", encoding='UTF-8')
-new3_data = open(r'\OpenPose_demo_1.0.1\examples\analysisData\309_pose.yml', "r", encoding='UTF-8')
-"""
 
 #jsonを取り扱う新版
 
@@ -54,11 +44,11 @@ new1 = [[]]
 new2 = [[]]
 new3 = [[]]
 
-new1 = reCoord(storeDoubleList(json1["people"][0]["pose_keypoints_2d"]))
-new2 = reCoord(storeDoubleList(json2["people"][0]["pose_keypoints_2d"]))
-new3 = reCoord(storeDoubleList(json3["people"][0]["pose_keypoints_2d"]))
+new1 = reCoord18(storeDoubleList18(json1["people"][0]["pose_keypoints_2d"]))
+new2 = reCoord18(storeDoubleList18(json2["people"][0]["pose_keypoints_2d"]))
+new3 = reCoord18(storeDoubleList18(json3["people"][0]["pose_keypoints_2d"]))
 
-#print(new1)
+print(str(new1))
 
 master1DataStr = []
 master2DataStr = []

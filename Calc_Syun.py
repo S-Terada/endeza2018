@@ -35,9 +35,11 @@ new1_data = open(imageData[0], "r", encoding='UTF-8')
 new2_data = open(imageData[1], "r", encoding='UTF-8')
 new3_data = open(imageData[2], "r", encoding='UTF-8')
 
+
 lines4 = new1_data.readlines()
 lines5 = new2_data.readlines()
 lines6 = new3_data.readlines()
+
 
 new1DataStr = []
 new2DataStr = []
@@ -57,10 +59,14 @@ for line in lines5:
 for line in lines6:
     new3DataStr.append(re.findall(pattern, line))
 
+#print(new3)
+
 # 新規データを一次元配列にfloat型で格納しなおす
 new1Data = storeList(new1DataStr, new1Data)
 new2Data = storeList(new2DataStr, new2Data)
 new3Data = storeList(new3DataStr, new3Data)
+
+#print("new3Data is " + str(new3Data))
 
 master1DataStr = []
 master2DataStr = []
@@ -91,6 +97,7 @@ new3 = [[]]
 new1 = reCoord(storeDoubleList(new1Data))
 new2 = reCoord(storeDoubleList(new2Data))
 new3 = reCoord(storeDoubleList(new3Data))
+
 
 # ここから計算パート
 # keyを辞書に投げて関数を実行し，その結果をcansへ代入する

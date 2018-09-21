@@ -3,7 +3,7 @@ from sys import argv
 import sys
 import numpy as np
 
-dataName = open(r'\OpenPose_demo_1.0.1\examples\analysisData\imageName.txt', "r")
+dataName = open(r'\openpose-1.3.0-win64-gpu-binaries\examples\analysisData\imageName.txt', "r")
 lines = dataName.readlines()
 pattern = r"[0-9]{3}"
 
